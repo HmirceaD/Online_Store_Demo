@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+<% include partials/nav%>
+
+<div class = "container text-center">
+    <div class = "thumbnail">
+        <h1 class = ""> <%= post.title %></h1>
+        
+        <img src = "<%= post.image %>" width = "500" height = "650" class = "img-rounded">
+        
+        <h4><%= post.price %> $</h4>
+        
+        <p> <%= post.desc %></p>
+        
+        <div class = "text-right">
+            <form class = "form-group" action = "/shop/<%= post._id %>/?_method=DELETE" method = "POST">
+                <button class = "btn btn-danger">DELETE</button>
+            </form>
+            
+            <button class = "btn btn-info"><a href = "/shop/<%= post._id %>/update">UPDATE</a></button>
+            
+        </div>
+    </div>
+    
+</div>
+
+<% include partials/footer%>

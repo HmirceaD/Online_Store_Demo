@@ -1,0 +1,20 @@
+#main-header {
+    padding-top: 300px ;
+    padding-left: 70vh ;
+}
+
+#main-header a{
+    color: white;
+}
+
+#post_container {
+    margin-right: 15px;
+}
+
+#post_container img{
+    width: 100%;
+}
+
+a {
+    color:white;
+}

@@ -1,0 +1,31 @@
+<% include partials/header %>
+
+<div class = "container">
+    
+    <h1> Add a new Item </h1>
+    
+            <form action = "/shop" method = "POST" >
+                
+                <div class = "form group">
+                    <input type = "text" name = "post[title]" placeholder = "Item name" class = "form-control input-lg">
+                </div>
+                <div class = "form group">
+                    <input type = "number" name = "post[price]" placeholder = "Item price" class = "form-control">
+                </div>
+                <div class = "form group"> 
+                    <input type = "text" name = "post[image]" placeholder = "Item image" class = "form-control">
+                </div>
+                <div class = "form group">
+                    <textarea name = "post[desc]" placeholder = "Describe the item" class = "form-control"></textarea>
+                </div>
+                <div class = "form group">
+                    <input type = "submit" class = "btn btn-primary">
+                </div>
+                
+               
+                
+            </form>
+        
+</div>
+
+<% include partials/footer %>
