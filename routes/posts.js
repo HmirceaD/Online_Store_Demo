@@ -53,7 +53,7 @@ router.get("/:id", function(req, res) {
     
 });
 
-router.delete("/:id", function(req, res){
+router.delete("/:id", midObj.checkAllAuth, function(req, res){
    
   Post.findByIdAndRemove(req.params.id, function(err){
       if(err){
@@ -65,7 +65,7 @@ router.delete("/:id", function(req, res){
    
 });
 
-router.get("/:id/update", function(req, res) {
+router.get("/:id/update", midObj.checkAllAuth, function(req, res) {
    
    Post.findById(req.params.id, function(err, post){
       if(err){
@@ -77,7 +77,7 @@ router.get("/:id/update", function(req, res) {
     
 });
 
-router.put("/:id", function(req,res){
+router.put("/:id", midObj.checkAllAuth, function(req,res){
    
   Post.findByIdAndUpdate(req.params.id, req.body.post, function(err,post){
      if(err){

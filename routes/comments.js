@@ -19,27 +19,6 @@ router.get("/shop/:id/comments/new", midObj.checkAuth, function(req, res) {
 });
 
 router.post("/shop/:id/comments", midObj.checkAuth, function(req,res){
-   
-//   Post.findById(req.params.id, function(err, post) {
-//       if(err){
-//           console.log(err);
-//       } else {
-          
-//           Comment.create(req.body.comment, function(err, comment){
-              
-//              if(err){
-//                  res.redirect("/shop/" + req.params.id);
-//              } else {
-                 
-//                 //com.save();
-//                 post.comments.push(comment);
-//                 post.save();
-//                 res.redirect("/shop/" + req.params.id);
-//              }
-//           });
-          
-//       }
-//   });
 
     var commentObj = { 
         text: req.body.comment.text, 
@@ -73,7 +52,7 @@ router.post("/shop/:id/comments", midObj.checkAuth, function(req,res){
     
 });
 
-router.delete("/shop/:id/comments/:com_id", function(req, res){
+router.delete("/shop/:id/comments/:com_id", midObj.checkAllCommentAuth, function(req, res){
    
    Post.findById(req.params.id, function(err, post) {
        if(err){
@@ -96,7 +75,7 @@ router.delete("/shop/:id/comments/:com_id", function(req, res){
     
 });
 
-router.get("/shop/:id/comments/:com_id", function(req, res) {
+router.get("/shop/:id/comments/:com_id", midObj.checkAllCommentAuth, function(req, res) {
    
    Post.findById(req.params.id, function(err, post) {
       if(err){
@@ -118,9 +97,9 @@ router.get("/shop/:id/comments/:com_id", function(req, res) {
     
 });
 
-router.put("/shop/:id/comments/:com_id", function(req, res){
+router.put("/shop/:id/comments/:com_id", midObj.checkAllCommentAuth, function(req, res){
    
-           Comment.findByIdAndUpdate(req.params.com_id, req.body.com, function(err, updatedComment){
+           Comment.findByIdAndUpdate(req.params.com_id, {text: req.body.comment.text, author:{id:req.user._id, username: req.user.username}}, function(err, updatedComment){
               
               if(err){
                   

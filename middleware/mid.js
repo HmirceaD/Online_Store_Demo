@@ -41,6 +41,38 @@ var midObj = {
             res.redirect("/login");
         } 
         
+    },
+    
+    checkAllCommentAuth: function(req, res, next){
+        
+        if(req.isAuthenticated()){
+            
+            Comment.findById(req.params.com_id, function(err, com){
+                
+                if(err){
+                    res.redirect("back");
+                } else {
+                    
+                    if(!com){
+                        
+                        return res.redirect("back");
+                    }
+                    
+                    if(com.author.id.equals(req.user._id)){
+                        next();
+                        
+                    } else {
+                        res.redirect("back");
+                    }
+                }
+                
+            });
+            
+        } else {
+            
+            res.redirect("/login");
+        } 
+        
     }
     
 }
