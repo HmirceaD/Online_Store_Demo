@@ -7,8 +7,16 @@
     <div class = "row">
         <div id = "left_menu" class = "col-md-2">
             
+            <% if(crr_user){ %>
+                
+                <h2> Logged in as: <%=crr_user.username%> </h2>
             
-            <p class = "lead">Stuff</p>
+            <% } else {%>
+                
+                <p class = "lead">Stuff</p>
+                
+            <% } %>        
+            
             
             <div class = "list-group">
                 <a href="/shop/new" class="list-group-item list-group-item-action">Add a Post!</a>
@@ -42,7 +50,6 @@
     </div>
 
 </div>
-
-<h1> <%= crr_user%> </h1>
-
+    
+    
 <% include ../partials/footer %>

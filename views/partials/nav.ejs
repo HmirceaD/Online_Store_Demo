@@ -7,8 +7,20 @@
       <li><a href="/shop">Shop</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Sign Up</a></li>
+      
+      <% if(crr_user){ %>
+                
+            <li> <a href = "#">Logged in as: <%=crr_user.username%></a> </li>
+            <li><a href="/logout">Logout</a></li>
+            
+      <% } else {%>
+                
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Sign Up</a></li>
+                
+      <% } %>
+            
+      
     </ul>
   </div>
 </nav>

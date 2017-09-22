@@ -33,10 +33,10 @@ app.use(require("express-session")({
 
 //=== passport config
 
-// app.use(function(req, res, next){
-//     res.locals.crr_user = req.user;
-//     next();
-// });
+ app.use(function(req, res, next){
+     res.locals.crr_user = req.user;
+     next();
+ });
 
 //===== every path has access to user ^^^^
 

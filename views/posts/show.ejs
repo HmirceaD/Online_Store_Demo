@@ -12,7 +12,11 @@
         
         <p> <%= post.desc %></p>
         
+        
         <div class = "text-right">
+            
+            <h2> Added By: <%= post.author.username %></h2>
+            
             <form class = "form-group" action = "/shop/<%= post._id %>/?_method=DELETE" method = "POST">
                 <button class = "btn btn-danger">DELETE</button>
             </form>
@@ -20,6 +24,8 @@
             <button class = "btn btn-warning"><a href = "/shop/<%= post._id %>/update">UPDATE</a></button>
             
         </div>
+        
+        
     </div>
     
 </div>
@@ -39,7 +45,7 @@
                 
                 <p> <%= com.text %> </p>
                 
-                <h5> By: <strong><%= com.author %></strong> </h5>
+                <h5> By: <strong><%= com.author.username %></strong> </h5>
                 
                 
             </div>

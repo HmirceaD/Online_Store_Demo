@@ -12,15 +12,34 @@ router.get("/", function(req, res){
              console.log("aoleo");
          } else {
              
-            res.render("posts/index", {posts:posts});
-         }
+            res.render("posts/index", {posts:posts, crr_user: req.user});
+         } 
      });
     
 });
 
 router.get("/new", midObj.checkAuth, function(req, res) {
     res.render("posts/new");
-})
+});
+
+router.post("/", midObj.checkAuth, function(req, res){
+    
+    var postObj = { title: req.body.post.title, price: req.body.post.price, image: req.body.post.image, desc: req.body.post.desc,
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
+    }
+    
+    Post.create(postObj, function(err, post){
+      if(err){
+          res.redirect("/shop");
+      } else {
+          res.redirect("/shop/");
+      }
+    });
+    
+});
 
 router.get("/:id", function(req, res) {
    
@@ -67,18 +86,6 @@ router.put("/:id", function(req,res){
          res.redirect("/shop/" + req.params.id);
      }
   });
-    
-});
-
-router.post("/", function(req, res){
-    
-    Post.create(req.body.post, function(err, post){
-       if(err){
-           res.redirect("/shop");
-       } else {
-           res.redirect("/shop");
-       }
-    });
     
 });
 

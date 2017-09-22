@@ -1,10 +1,11 @@
 var express = require("express");
 var router  = express.Router();
-var Post = require("../models/post");
+var Post    = require("../models/post");
 var Comment = require("../models/comment");
 var User    = require("../models/user");
+var midObj  = require("../middleware/mid");
 
-router.get("/shop/:id/comments/new", function(req, res) {
+router.get("/shop/:id/comments/new", midObj.checkAuth, function(req, res) {
     
     Post.findById(req.params.id, function(err, post) {
         
@@ -17,28 +18,58 @@ router.get("/shop/:id/comments/new", function(req, res) {
    
 });
 
-router.post("/shop/:id/comments", function(req,res){
+router.post("/shop/:id/comments", midObj.checkAuth, function(req,res){
    
-   Post.findById(req.params.id, function(err, post) {
-      if(err){
-          console.log(err);
-      } else {
+//   Post.findById(req.params.id, function(err, post) {
+//       if(err){
+//           console.log(err);
+//       } else {
           
-          Comment.create(req.body.comment, function(err, comment){
+//           Comment.create(req.body.comment, function(err, comment){
               
-             if(err){
-                 res.redirect("/shop/" + req.params.id);
-             } else {
+//              if(err){
+//                  res.redirect("/shop/" + req.params.id);
+//              } else {
                  
-                //com.save();
-                post.comments.push(comment);
-                post.save();
-                res.redirect("/shop/" + req.params.id);
-             }
-          });
+//                 //com.save();
+//                 post.comments.push(comment);
+//                 post.save();
+//                 res.redirect("/shop/" + req.params.id);
+//              }
+//           });
           
-      }
-   });
+//       }
+//   });
+
+    var commentObj = { 
+        text: req.body.comment.text, 
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        
+        }
+        
+    }
+    
+    Post.findById(req.params.id, function(err, post){
+       
+       if(err){
+           res.redirect("back");
+       } else {
+           
+           Comment.create(commentObj, function(err, comment){
+               if(err){
+                   res.redirect("/shop");
+               } else {
+                   
+                    post.comments.push(comment);
+                    post.save();
+                    res.redirect("/shop/" + req.params.id);
+               }
+           });
+       }
+        
+    });
     
 });
 
