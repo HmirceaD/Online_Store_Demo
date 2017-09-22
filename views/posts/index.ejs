@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+
+<% include ../partials/nav %>
+
+<div class = "container-fluid">
+    
+    <div class = "row">
+        <div id = "left_menu" class = "col-md-2">
+            
+            
+            <p class = "lead">Stuff</p>
+            
+            <div class = "list-group">
+                <a href="/shop/new" class="list-group-item list-group-item-action">Add a Post!</a>
+                <li class = "list-group-item">Info 2</li>
+                <li class = "list-group-item">Info 3</li>
+                <li class = "list-group-item">Info 4</li>
+            </div>  
+            
+        </div>
+        
+        <div class = "col-md-10">
+            <div class = "row text-center" style = "display:flex; flex-wrap: wrap;">
+              
+                <% posts.forEach(function(post){ %>
+                  
+                        <div class = "col-md-3 col-sm-6" >
+                            <div class = "thumbnail">
+                                <h1><%= post.title %></h1>
+                                <img src = "<%= post.image %>" width = "150" height = "230">
+                                <h6><%= post.price %> $</h6>
+                                <p> <%= post.desc %></p>
+                                <button class = "btn btn-primary"><a href = "/shop/<%= post._id%>">Show More</a></button>
+                            </div>
+                        </div>
+                    
+                    
+                <% }) %>
+    
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<% include ../partials/footer %>

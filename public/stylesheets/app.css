@@ -18,3 +18,20 @@
 a {
     color:white;
 }
+
+#left_menu{
+    /*padding-right: 50px;*/
+}
+
+.inline_form {
+    display: inline;
+}
+
+#btn_container {
+    padding-top: 40px;
+}
+
+.jumbotron hr {
+    
+    border-top: 1px solid black;
+}
