@@ -4,7 +4,14 @@ var express        = require("express"),
     mongoose       = require("mongoose"),
     Post           = require("./models/post"),
     Comment        = require("./models/comment"),
-    methodOverride = require("method-override");
+    passport       = require("passport"),
+    localStrategy  = require("passport-local"),
+    methodOverride = require("method-override"),
+    User           = require("./models/user");
+    
+var postsRoutes    = require("./routes/posts"),
+    commentRoutes  = require("./routes/comments"),
+    indexRoutes    = require("./routes/index");
 
 
 // ========= Dependsss ===========
@@ -16,186 +23,34 @@ app.use(methodOverride("_method"));
 //= ================
 
 
-// ====== Routes for the posts and the index
-app.get("/", function(req, res){
-   res.render("landing"); 
-});
-    
-app.get("/shop", function(req, res){
-    
-     Post.find({}, function(err, posts){
-         if(err){
-             console.log("aoleo");
-         } else {
-             
-            res.render("posts/index", {posts:posts});
-         }
-     });
-    
-});
+//===sessions
 
-app.get("/shop/new", function(req, res) {
-    res.render("posts/new");
-})
+app.use(require("express-session")({
+    secret: "Cum sa nu iti placa manelele",
+    resave: false,
+    saveUninitialized: false
+}));
 
-app.get("/shop/:id", function(req, res) {
-   
-   Post.findById(req.params.id).populate("comments").exec(function(err, post){
-       if(err){
-           res.redirect("back");
-       } else {
-           res.render("posts/show", {post:post});
-       }
-   });
-    
-});
+//=== passport config
 
-app.delete("/shop/:id", function(req, res){
-   
-  Post.findByIdAndRemove(req.params.id, function(err){
-      if(err){
-          res.redirect("/shop");
-      } else {
-          res.redirect("/shop");
-      }
-  });
-   
-});
+// app.use(function(req, res, next){
+//     res.locals.crr_user = req.user;
+//     next();
+// });
 
-app.get("/shop/:id/update", function(req, res) {
-   
-   Post.findById(req.params.id, function(err, post){
-      if(err){
-          res.redirect("back");
-      } else {
-          res.render("posts/update", {post:post});
-      } 
-   })
-    
-});
+//===== every path has access to user ^^^^
 
-app.put("/shop/:id", function(req,res){
-   
-  Post.findByIdAndUpdate(req.params.id, req.body.post, function(err,post){
-     if(err){
-         res.redirect("/shop");
-     } else {
-         res.redirect("/shop/" + req.params.id);
-     }
-  });
-    
-});
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+//===
 
-app.post("/shop", function(req, res){
-    
-    Post.create(req.body.post, function(err, post){
-       if(err){
-           res.redirect("/shop");
-       } else {
-           res.redirect("/shop");
-       }
-    });
-    
-});
+app.use("/shop", postsRoutes);
+app.use(commentRoutes);
+app.use(indexRoutes);
 
-// ============ routes for the comments
-
-app.get("/shop/:id/comments/new", function(req, res) {
-    
-    Post.findById(req.params.id, function(err, post) {
-        if(err){
-            res.redirect("back");
-        } else {
-            res.render("comments/new", {post:post}); 
-        }
-    });
-   
-});
-
-app.post("/shop/:id/comments", function(req,res){
-   
-   Post.findById(req.params.id, function(err, post) {
-      if(err){
-          console.log(err);
-      } else {
-          
-          Comment.create(req.body.comment, function(err, comment){
-             if(err){
-                 res.redirect("/shop/" + req.params.id);
-             } else {
-                 
-                //com.save();
-                post.comments.push(comment);
-                post.save();
-                res.redirect("/shop/" + req.params.id);
-             }
-          });
-          
-      }
-   });
-    
-});
-
-app.delete("/shop/:id/comments/:com_id", function(req, res){
-   
-   Post.findById(req.params.id, function(err, post) {
-       if(err){
-           res.redirect("/shop/" + req.params.id);
-       } else {
-           
-           Comment.findByIdAndRemove(req.params.com_id, function(err){
-              
-              if(err){
-                  
-                  res.redirect("/shop/" + req.params.id);
-              } else {
-                  res.redirect("/shop/" + req.params.id);
-              }
-               
-           });
-           
-       }
-   });
-    
-});
-
-app.get("/shop/:id/comments/:com_id", function(req, res) {
-   
-   Post.findById(req.params.id, function(err, post) {
-      if(err){
-          res.redirect("back");
-      } else {
-          
-          Comment.findById(req.params.com_id, function(err, comment) {
-              
-            if(err){
-                res.render("back");
-            } else {
-                res.render("comments/update", {comment:comment, post:post});
-            }
-        });
-      }
-   });
-   
-   
-    
-});
-
-app.put("/shop/:id/comments/:com_id", function(req, res){
-   
-           Comment.findByIdAndUpdate(req.params.com_id, req.body.com, function(err, updatedComment){
-              
-              if(err){
-                  
-                  res.redirect("/shop/" + req.params.id);
-              } else {
-                  
-                  res.redirect("/shop/" + req.params.id);
-              }
-               
-           });
-    
-});
     
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Server Started"); 
