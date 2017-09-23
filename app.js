@@ -11,8 +11,8 @@ var express        = require("express"),
     
 var postsRoutes    = require("./routes/posts"),
     commentRoutes  = require("./routes/comments"),
-    indexRoutes    = require("./routes/index");
-
+    indexRoutes    = require("./routes/index"),
+    userRoutes     = require("./routes/user");
 
 // ========= Dependsss ===========
 mongoose.connect("mongodb://localhost/online_shop_demo", {useMongoClient: true});
@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 //= ================
-
 
 //===sessions
 
@@ -48,10 +47,10 @@ passport.deserializeUser(User.deserializeUser());
 //===
 
 app.use("/shop", postsRoutes);
+app.use("/user", userRoutes);
 app.use(commentRoutes);
 app.use(indexRoutes);
 
-    
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Server Started"); 
 });    

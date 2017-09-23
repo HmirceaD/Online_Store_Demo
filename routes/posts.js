@@ -1,5 +1,6 @@
 var express = require("express");
-var router  = express.Router();
+var router  = express.Router(),
+    passport = require("passport");
 var Post    = require("../models/post");
 var Comment = require("../models/comment");
 var User    = require("../models/user");
@@ -11,7 +12,6 @@ router.get("/", function(req, res){
          if(err){
              console.log("aoleo");
          } else {
-             
             res.render("posts/index", {posts:posts, crr_user: req.user});
          } 
      });
@@ -31,6 +31,8 @@ router.post("/", midObj.checkAuth, function(req, res){
         }
     }
     
+    
+    
     Post.create(postObj, function(err, post){
       if(err){
           res.redirect("/shop");
@@ -47,7 +49,8 @@ router.get("/:id", function(req, res) {
        if(err){
            res.redirect("back");
        } else {
-           res.render("posts/show", {post:post});
+           res.render("posts/show", {post:post, crr_user: req.user});
+           
        }
    });
     

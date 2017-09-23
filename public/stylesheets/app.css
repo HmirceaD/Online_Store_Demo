@@ -39,3 +39,11 @@ a {
 form a {
     color: lightblue;
 }
+
+#main_container {
+    
+   
+    border-left: 1px solid;
+     border-left-color: rgba(1,0,1,0.3);
+    
+}

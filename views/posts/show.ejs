@@ -17,11 +17,18 @@
             
             <h2> Added By: <%= post.author.username %></h2>
             
-            <form class = "form-group" action = "/shop/<%= post._id %>/?_method=DELETE" method = "POST">
-                <button class = "btn btn-danger">DELETE</button>
-            </form>
+            <% if( crr_user != undefined && post.author.username != undefined){ %>
             
-            <button class = "btn btn-warning"><a href = "/shop/<%= post._id %>/update">UPDATE</a></button>
+                <% if( (post.author.username === crr_user.username) && (crr_user != undefined)){ %>
+            
+                    <form class = "form-group" action = "/shop/<%= post._id %>/?_method=DELETE" method = "POST">
+                        <button class = "btn btn-danger">DELETE</button>
+                    </form>
+                    
+                    <button class = "btn btn-warning"><a href = "/shop/<%= post._id %>/update">UPDATE</a></button>
+        
+                <% } %>
+            <% } %>
             
         </div>
         
@@ -54,11 +61,21 @@
                 
                 <div id = "btn_container">
                     
-                    <a class = "btn btn-xs btn-warning" href = "/shop/<%= post._id %>/comments/<%= com._id %>">UPDATE</a>
+                    <% if( crr_user != undefined && com.author.username != undefined){ %>
+            
+                        <% if( (com.author.username === crr_user.username) && (crr_user != undefined)){ %>
                     
-                    <form class = "inline_form" action = "/shop/<%= post._id %>/comments/<%= com._id %>?_method=DELETE" method = "POST">
-                        <button class = "btn btn-xs btn-danger">DELETE</button>
-                    </form>
+                    
+                            <a class = "btn btn-xs btn-warning" href = "/shop/<%= post._id %>/comments/<%= com._id %>">UPDATE</a>
+                            
+                            <form class = "inline_form" action = "/shop/<%= post._id %>/comments/<%= com._id %>?_method=DELETE" method = "POST">
+                                <button class = "btn btn-xs btn-danger">DELETE</button>
+                            </form>
+                            
+                    
+                        <% } %>
+                    <% } %>
+                    
                 </div>
                 
                 
