@@ -32,14 +32,27 @@ router.post("/", midObj.checkAuth, function(req, res){
     }
     
     
-    
-    Post.create(postObj, function(err, post){
-      if(err){
-          res.redirect("/shop");
-      } else {
-          res.redirect("/shop/");
-      }
+    User.findById(req.user._id, function(err, user) {
+        if(err){
+            
+            console.log(err);
+            
+        } else {
+            
+            Post.create(postObj, function(err, post){
+                if(err){
+                    res.redirect("/shop");
+                } else {
+                    
+                    user.posts.push(postObj);
+                    user.save();
+                    
+                    res.redirect("/shop");
+                }
+            });
+        }
     });
+    
     
 });
 

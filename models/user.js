@@ -7,11 +7,20 @@ var userSchema = new mongoose.Schema({
    password: String,
    
    posts: [{
+      
+      id:{
     
          type: mongoose.Schema.Types.ObjectId,
          ref: "Post"
+       }, 
        
-   }],
+       title: String,
+       price: Number,
+       image: String,
+       desc: String
+       
+       
+       }],
    
    comments: [{
     

@@ -9,7 +9,7 @@
             
             <% if(crr_user){ %>
                 
-                <h2> Logged in as: <%=crr_user.username%> </h2>
+                <h2> <a href = "/user/<%= crr_user._id %>">Logged in as: <%=crr_user.username%></a> </h2>
             
             <% } else {%>
                 
