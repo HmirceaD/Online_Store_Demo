@@ -4,14 +4,52 @@
 
 <div class = "container">
     
-    <h1> <%= user.username %> </h1>
+    <div class = "container well jumbotron rounded">
     
-    <% user.posts.forEach(function(post){%>
+        <h2> Account name: <%= user.username %> </h2>
+        <h2> Number of posts: <%= user.posts.length %> </h2>
+        <h2> Number of comments: <%= user.comments.length %> </h2>
     
-        <h1> <%= post.title %> </h1>
+    </div>
     
-    <% }) %>
-        <!--UNDER CONSTRUCTION-->
+    
+</div>
+
+<div class = "container-fluid">
+    
+    <div class = "row">
+        
+        <div id = "post_container" class = "col-md-6">
+            
+            <p> Your posts:</p>
+        
+                <% user.posts.forEach(function(post){%>
+                    <div class = "well">
+                        <p><a><%= post.title %></a></p>
+                        
+                        <!--<form action = "/shop/<%= post._id%>" method = "GET">-->
+                        <!--    <input type = "submit" value = "Take me to it">-->
+                        <!--</form>-->
+                    </div>
+                <% }) %>
+            
+            
+        </div>    
+            
+        <div class = "col-md-6">
+            
+            <p>Your Comment</p>
+            
+            <% user.comments.forEach(function(com){%>
+                    <div class = "well">
+                        <p> You wrote: <i><%= com.text.substring(0, 20) %>...</i> </p>
+                    </div>
+                <% }) %>
+            
+        </div>
+        
+    </div>
+    
 </div>
 
 <% include ../partials/footer %>

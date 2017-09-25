@@ -18,6 +18,18 @@ router.get("/", function(req, res){
     
 });
 
+router.get("/categories/:cat_id", function(req, res) {
+    
+    Post.find({category: req.params.cat_id}, function(err, posts){
+       if(err){
+           res.redirect("/shop");
+       } else {
+           res.render("posts/index", {posts:posts, crr_user: req.user});
+       }
+    });
+    
+});
+
 router.get("/new", midObj.checkAuth, function(req, res) {
     res.render("posts/new");
 });
@@ -28,7 +40,9 @@ router.post("/", midObj.checkAuth, function(req, res){
         author: {
             id: req.user._id,
             username: req.user.username
-        }
+        },
+        
+        category: req.body.post.category
     }
     
     
@@ -71,13 +85,15 @@ router.get("/:id", function(req, res) {
 
 router.delete("/:id", midObj.checkAllAuth, function(req, res){
    
-  Post.findByIdAndRemove(req.params.id, function(err){
-      if(err){
-          res.redirect("/shop");
-      } else {
-          res.redirect("/shop");
-      }
-  });
+    Post.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/shop");
+        } else {
+            res.redirect("/shop");
+        }
+    });
+  
+  
    
 });
 
@@ -89,7 +105,7 @@ router.get("/:id/update", midObj.checkAllAuth, function(req, res) {
       } else {
           res.render("posts/update", {post:post});
       } 
-   })
+   });
     
 });
 
@@ -104,5 +120,18 @@ router.put("/:id", midObj.checkAllAuth, function(req,res){
   });
     
 });
+
+function arr_remove(arr, ps){
+    
+    for (var i = 0; i < arr.length; i++){
+        
+        if( arr[i]._id == ps._id ){
+            
+            arr.splice(i, 1);
+        }
+        
+    }
+    
+};
 
 module.exports = router;

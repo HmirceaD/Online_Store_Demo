@@ -30,25 +30,36 @@ router.post("/shop/:id/comments", midObj.checkAuth, function(req,res){
         
     }
     
-    Post.findById(req.params.id, function(err, post){
+    User.findById(req.user.id, function(err, user) {
+        if(err){
+            res.redirect("back");
+        } else {
+            
+            Post.findById(req.params.id, function(err, post){
        
-       if(err){
-           res.redirect("back");
-       } else {
-           
-           Comment.create(commentObj, function(err, comment){
                if(err){
-                   res.redirect("/shop");
+                   res.redirect("back");
                } else {
-                   
-                    post.comments.push(comment);
-                    post.save();
-                    res.redirect("/shop/" + req.params.id);
-               }
-           });
-       }
+           
+                   Comment.create(commentObj, function(err, comment){
+                       if(err){
+                           res.redirect("/shop");
+                       } else {
+                           
+                            post.comments.push(comment);
+                            post.save();
+                            user.comments.push(comment);
+                            user.save();
+                            res.redirect("/shop/" + req.params.id);
+                            }
+                        });
+                    }
         
-    });
+                });
+            }
+        });
+    
+    ///////CALLLLBACKKKKKK HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\\\\\\\\\\\
     
 });
 

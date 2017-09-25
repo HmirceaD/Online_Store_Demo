@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<% include ../partials/nav %>
+<% include ../partials/nav%>
 
 <div class = "container">
     
@@ -17,6 +17,26 @@
                 <div class = "form group"> 
                     <input type = "text" name = "post[image]" placeholder = "Item image" class = "form-control">
                 </div>
+                
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "cars">Cars</label>
+                </div>
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "elec">Electronics</label>
+                </div>
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "out">Outdoors</label>
+                </div>
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "anm">Animal</label>
+                </div>
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "home">Furniture & Housing</label>
+                </div>
+                <div class = radio-inline>
+                    <label><input type="radio" name="post[category]" value = "oter">Other</label>
+                </div>
+                
                 <div class = "form group">
                     <textarea name = "post[desc]" placeholder = "Describe the item" class = "form-control"></textarea>
                 </div>

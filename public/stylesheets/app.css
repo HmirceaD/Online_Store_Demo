@@ -1,6 +1,8 @@
 #main-header {
     padding-top: 300px ;
     padding-left: 70vh ;
+    
+    margin: auto auto;
 }
 
 #main-header a{
@@ -13,10 +15,6 @@
 
 #post_container img{
     width: 100%;
-}
-
-a {
-    color:white;
 }
 
 #left_menu{
@@ -36,18 +34,22 @@ a {
     border-top: 1px solid black;
 }
 
-form a {
+a {
     color: lightblue;
 }
 
 #main_container {
     
-   
     border-left: 1px solid;
-     border-left-color: rgba(1,0,1,0.3);
+    border-left-color: rgba(1,0,1,0.3);
     
 }
 
-h2 a {
-    color:lightblue;
+#post_container {
+    
+    border-right: 1px solid;
+    border-right-color: rgba(1,0,1,0.3);
+    
+    width: 30%;
+    height: 40%;
 }

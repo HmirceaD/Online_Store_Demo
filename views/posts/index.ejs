@@ -8,7 +8,7 @@
         <div id = "left_menu" class = "col-md-2">
             
             <% if(crr_user){ %>
-                
+
                 <h2> <a href = "/user/<%= crr_user._id %>">Logged in as: <%=crr_user.username%></a> </h2>
             
             <% } else {%>
@@ -17,7 +17,6 @@
                 
             <% } %>        
             
-            
             <div class = "list-group">
                 <a href="/shop/new" class="list-group-item list-group-item-action">Add a Post!</a>
                 <a href = "/logout" class="list-group-item list-group-item-action">Sign Out</a>
@@ -25,11 +24,25 @@
                 <li class = "list-group-item">Info 4</li>
             </div>  
             
+            <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Categories
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="/shop/">All</a></li>
+                    <li><a href="/shop/categories/cars"><i class="fa fa-car"></i> Cars</a></li>
+                    <li><a href="/shop/categories/elec"><i class="fa fa-mobile"></i> Electronics</a></li>
+                    <li><a href="/shop/categories/out"><i class="fa fa-sun-o"></i> Outdoors</a></li>
+                    <li><a href="/shop/categories/anm"><i class="fa fa-paw"></i> Animal</a></li>
+                    <li><a href="/shop/categories/home"><i class="fa fa-home"></i> Furniture & Housing</a></li>
+                    <li><a href="/shop/categories/oter"><i class="fa fa-question-circle"></i> Other</a></li>
+                  </ul>
+            </div>
         </div>
-        
         <div id = "main_container" class = "col-md-10">
             <div class = "row text-center" style = "display:flex; flex-wrap: wrap;">
-              
+                
                 <% posts.forEach(function(post){ %>
                   
                         <div class = "col-md-3 col-sm-6" >
@@ -47,8 +60,8 @@
     
             </div>
         </div>
+    
     </div>
-
 </div>
     
     

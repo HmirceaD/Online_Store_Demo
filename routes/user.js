@@ -18,4 +18,5 @@ router.get("/:user_id", midObj.checkAuth, function(req, res){
     
 });
 
+
 module.exports = router;

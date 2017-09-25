@@ -23,7 +23,9 @@ var postSchema = new mongoose.Schema({
       
       username: String
       
-   }
+   },
+   
+   category: String
     
 });
 

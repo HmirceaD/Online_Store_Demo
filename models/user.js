@@ -24,9 +24,12 @@ var userSchema = new mongoose.Schema({
    
    comments: [{
     
+      id: {
          type: mongoose.Schema.Types.ObjectId,
          ref: "Comment"
-       
+      },
+      
+      text: String
    }]
    
 });
