@@ -4,6 +4,28 @@
 
 <div class = "container-fluid">
     
+    <div class = "container fluid row">
+        
+        <div class = "col-md-1">
+            
+        </div>
+        
+        <div class = "col-md-1">
+        
+            <div class="ui small icon input">
+              
+              <form>
+                  <input type="text" placeholder="Search" name = "search">
+              </form>
+              <i class="search icon"></i>
+            
+            </div>
+        
+        </div>
+        
+    </div>
+    
+    
     <div class = "row">
         <div id = "left_menu" class = "col-md-2">
             
@@ -25,42 +47,49 @@
             </div>  
             
             <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Categories
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="/shop/">All</a></li>
-                    <li><a href="/shop/categories/cars"><i class="fa fa-car"></i> Cars</a></li>
-                    <li><a href="/shop/categories/elec"><i class="fa fa-mobile"></i> Electronics</a></li>
-                    <li><a href="/shop/categories/out"><i class="fa fa-sun-o"></i> Outdoors</a></li>
-                    <li><a href="/shop/categories/anm"><i class="fa fa-paw"></i> Animal</a></li>
-                    <li><a href="/shop/categories/home"><i class="fa fa-home"></i> Furniture & Housing</a></li>
-                    <li><a href="/shop/categories/oter"><i class="fa fa-question-circle"></i> Other</a></li>
-                  </ul>
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Categories
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="/shop/">All</a></li>
+                        <li><a href="/shop/categories/cars"><i class="fa fa-car"></i> Cars</a></li>
+                        <li><a href="/shop/categories/elec"><i class="fa fa-mobile"></i> Electronics</a></li>
+                        <li><a href="/shop/categories/out"><i class="fa fa-sun-o"></i> Outdoors</a></li>
+                        <li><a href="/shop/categories/anm"><i class="fa fa-paw"></i> Animal</a></li>
+                        <li><a href="/shop/categories/home"><i class="fa fa-home"></i> Furniture & Housing</a></li>
+                        <li><a href="/shop/categories/oter"><i class="fa fa-question-circle"></i> Other</a></li>
+                      </ul>
+                </div>
             </div>
-        </div>
+        
         <div id = "main_container" class = "col-md-10">
             <div class = "row text-center" style = "display:flex; flex-wrap: wrap;">
                 
-                <% posts.forEach(function(post){ %>
+                <% if (posts.length == 0){ %>
+                    
+                    <div class = "container">
+                        <h1> No posts right now :'(</h1>
+                    </div>
+                <% } else {%>
+                
+                    <% posts.forEach(function(post){ %>
                   
                         <div class = "col-md-3 col-sm-6" >
                             <div class = "thumbnail">
                                 <h1><%= post.title %></h1>
                                 <img src = "<%= post.image %>" width = "150" height = "230">
                                 <h6><%= post.price %> $</h6>
-                                <p> <%= post.desc %></p>
+                                
+                                <p> <%= post.desc.substring(0, 20) %>...</p>
+                               
                                 <button class = "btn btn-primary"><a href = "/shop/<%= post._id%>">Show More</a></button>
                             </div>
                         </div>
-                    
-                    
-                <% }) %>
-    
+                    <% }) %>
+                <% }%>
             </div>
         </div>
-    
     </div>
 </div>
     

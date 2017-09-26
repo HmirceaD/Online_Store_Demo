@@ -1,3 +1,4 @@
+
 #main-header {
     padding-top: 300px ;
     padding-left: 70vh ;
@@ -52,4 +53,11 @@ a {
     
     width: 30%;
     height: 40%;
+}
+
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+    /*margin-top: 15%;*/
 }

@@ -93,8 +93,6 @@ router.delete("/:id", midObj.checkAllAuth, function(req, res){
         }
     });
   
-  
-   
 });
 
 router.get("/:id/update", midObj.checkAllAuth, function(req, res) {

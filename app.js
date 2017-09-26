@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
-//= ================
+//========
 
 //===sessions
 
@@ -50,6 +50,20 @@ app.use("/shop", postsRoutes);
 app.use("/user", userRoutes);
 app.use(commentRoutes);
 app.use(indexRoutes);
+
+//===== 404 error
+app.use(function(req, res, next){
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts("html")) {
+    res.render("error_404");
+    return;
+  }
+  
+});
+
+//======== 
 
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Server Started"); 
