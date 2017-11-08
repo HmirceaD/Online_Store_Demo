@@ -8,14 +8,15 @@ var express        = require("express"),
     localStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
     User           = require("./models/user");
-    
+
 var postsRoutes    = require("./routes/posts"),
     commentRoutes  = require("./routes/comments"),
     indexRoutes    = require("./routes/index"),
     userRoutes     = require("./routes/user");
 
 // ========= Dependsss ===========
-mongoose.connect("mongodb://localhost/online_shop_demo", {useMongoClient: true});
+//mongoose.connect("mongodb://localhost/online_shop_demo", {useMongoClient: true});
+mongoose.connect("mongodb://doru:eyeofthetiger@ds042527.mlab.com:42527/online_shop");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
@@ -60,11 +61,11 @@ app.use(function(req, res, next){
     res.render("error_404");
     return;
   }
-  
+
 });
 
-//======== 
+//========
 
-app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("Server Started"); 
-});    
+app.listen(8080, function(){
+   console.log("Server Started");
+});
