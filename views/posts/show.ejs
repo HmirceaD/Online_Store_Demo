@@ -5,92 +5,93 @@
 <div class = "container text-center">
     <div class = "thumbnail">
         <h1 class = ""> <%= post.title %></h1>
-        
+
         <img src = "<%= post.image %>" width = "500" height = "650" class = "img-rounded">
-        
-        
-        
+
+
+
         <div class = "container text-center">
-            
+
+
             <h4><%= post.price %> $</h4>
             <p> <%= post.desc %></p>
-        
+
         </div>
-        
+
         <div class = "text-right">
-            
+
             <h2> Added By: <%= post.author.username %></h2>
-            
+
             <% if( crr_user != undefined && post.author.username != undefined){ %>
-            
+
                 <% if( (post.author.username === crr_user.username) && (crr_user != undefined)){ %>
-            
+
                     <form class = "form-group" action = "/shop/<%= post._id %>/?_method=DELETE" method = "POST">
                         <button class = "btn btn-danger">DELETE</button>
                     </form>
-                    
-                    <button class = "btn btn-warning"><a href = "/shop/<%= post._id %>/update">UPDATE</a></button>
-        
+
+                    <a href = "/shop/<%= post._id %>/update"><button class = "btn btn-warning">UPDATE</button></a>
+
                 <% } %>
             <% } %>
-            
+
         </div>
-        
-        
+
+
     </div>
-    
+
 </div>
 
 <div class = "container">
     <div class = "jumbotron well">
-        <button class ="btn btn-primary"><a href = "/shop/<%= post._id %>/comments/new">Add a comment!</a></button>
-    
-    
+        <a href = "/shop/<%= post._id %>/comments/new"><button class ="btn btn-primary">Add a comment!</button></a>
+
+
     <% post.comments.forEach(function(com){ %>
-        
+
         <div class = "container-fluid row">
-            
+
             <div class = "col-md-9 text-left">
-            
+
                 <hr>
-                
+
                 <p> <%= com.text %> </p>
-                
+
                 <h5> By: <strong><%= com.author.username %></strong> </h5>
-                
-                
+
+
             </div>
-            
+
             <div class = "col-md-3 text-right">
-                
+
                 <div id = "btn_container">
-                    
+
                     <% if( crr_user != undefined && com.author.username != undefined){ %>
-            
+
                         <% if( (com.author.username === crr_user.username) && (crr_user != undefined)){ %>
-                    
-                    
+
+
                             <a class = "btn btn-xs btn-warning" href = "/shop/<%= post._id %>/comments/<%= com._id %>">UPDATE</a>
-                            
+
                             <form class = "inline_form" action = "/shop/<%= post._id %>/comments/<%= com._id %>?_method=DELETE" method = "POST">
                                 <button class = "btn btn-xs btn-danger">DELETE</button>
                             </form>
-                            
-                    
+
+
                         <% } %>
                     <% } %>
-                    
+
                 </div>
-                
-                
+
+
             </div>
-                
+
         </div>
-                    
+
     <% }) %>
-    
+
     </div>
-    
+
 </div>
 
 

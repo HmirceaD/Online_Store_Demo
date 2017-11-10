@@ -29,7 +29,7 @@ router.get("/search", function(req, res) {
 
     if(req.query.search.category == "all"){
 
-      Post.find({price: {$gt: min1, $lt: max1}, title:req.query.search.title}, function(err, posts) {
+      Post.find({price: {$gt: min1, $lt: max1}, title: {$regex : new RegExp(req.query.search.title, "i")}}, function(err, posts) {
           if(err){
               res.redirect("/shop");
           } else {
@@ -72,19 +72,13 @@ router.get("/search", function(req, res) {
 
 });
 
-/*router.get("/seach_title", function(req,res){
-
-  var titleStr = req.query.titleQuery;
-
-  res.send(titleStr);
-
-});*/
-
 router.get("/new", midObj.checkAuth, function(req, res) {
     res.render("posts/new");
 });
 
 router.post("/", midObj.checkAuth, function(req, res){
+
+  //var strTemp = req.body.post.title;
 
     var postObj = { title: req.body.post.title, price: req.body.post.price, image: req.body.post.image, desc: req.body.post.desc,
         author: {
